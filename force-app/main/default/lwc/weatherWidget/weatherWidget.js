@@ -12,7 +12,9 @@ import RAIN_PICT from '@salesforce/resourceUrl/rain';
 import STORM_PICT from '@salesforce/resourceUrl/storm';
 import SNOW_PICT from '@salesforce/resourceUrl/snow';
 import MIST_PICT from '@salesforce/resourceUrl/fog';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class WeatherWidget extends LightningElement {
+    
     moonPict = MOON_PICT;
     sunPict = SUNNY_PICT;
     fewCloudsPict = FEW_CLOUDS_PICT;
@@ -34,7 +36,7 @@ export default class WeatherWidget extends LightningElement {
     timestamp;
     isFormEnabled;
     defaultCity;
-    
+    inputCity;
     @wire(getCity)
     wiredCity({ error, data }) {
         if (data) {
@@ -68,11 +70,15 @@ export default class WeatherWidget extends LightningElement {
     async handleRefresh() {
         this.error = '';
         try {
-            if(this.displayCity){           
+           /* if(this.displayCity){           
             this.configuration = await refreshWeather({
             city : this.displayCity
-            });
-       }else{
+            });*/
+            if(this.inputCity){           
+                this.configuration = await refreshWeather({
+                city : this.inputCity
+                });
+        }else{
            this.configuration = await refreshWeather({
                city : this.defaultCity        
                });
@@ -82,6 +88,13 @@ export default class WeatherWidget extends LightningElement {
         catch (error) {
             console.error(error);
             this.error = error;
+            const evt = new ShowToastEvent({
+                title: 'Error',
+                message: 'City not found',
+                variant: 'error',
+                mode: 'dismissable'
+            });
+            this.dispatchEvent(evt);  
         }
     }
 
@@ -132,24 +145,16 @@ export default class WeatherWidget extends LightningElement {
         let element = event.target.name;
         let value = event.target.value;
         if(element === 'inputCity') {
-            this.displayCity = value;
-        }
-        if(element === 'inputApiKey') {
-            if(value !== '') {
-                this.apiKey = value;
-            }
+            this.inputCity = value;
         }
     }
-
 
     handleFormSave() {
         this.handleRefresh();
     }
 
-
     handleEdit() {
         this.isFormEnabled = true;
         this.displayCity = null;
     }
-
 }

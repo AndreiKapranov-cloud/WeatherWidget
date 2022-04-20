@@ -140,11 +140,7 @@ export default class WeatherWidget extends LightningElement {
             break;
             }
         }
-        else {
-            this.isFormEnabled = true;
-        }
     }
-
 
     updateValue(event) {
         let element = event.target.name;
@@ -158,8 +154,4 @@ export default class WeatherWidget extends LightningElement {
         this.handleRefresh();
     }
 
-    handleEdit() {
-        this.isFormEnabled = true;
-        this.displayCity = null;
-    }
 }

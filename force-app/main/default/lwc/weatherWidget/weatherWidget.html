@@ -3,26 +3,10 @@
       <lightning-button-group slot="actions" style="background-color:#16325c;padding:0.5rem">
           <lightning-button label="Refresh"  onclick={handleRefresh}></lightning-button>
       </lightning-button-group>
-
       <div class="slds-var-p-horizontal_small">
-          <template if:true={isFormEnabled}>
-              <div class="slds-grid slds-gutters slds-wrap">
-                <div class="slds-col slds-size_1-of-1">
-                      <lightning-input type="text" name="inputCity" label="Enter City"
-                      placeholder="London, UK"
-                      onchange={updateValue} value={displayCity} >
-                      </lightning-input>
-                </div>   
-                </div>
-                  <div style="background-color:#16325c;padding:0.5rem">
-                      <button class="slds-button slds-button_inverse" label="Save" title="Save"
-                      onclick={handleFormSave}>Save</button>
-                 </div>  
-          </template>
           <template if:false = {isFormEnabled}>
               <div class="slds-grid slds-gutters">
                   <div class="slds-grid slds-col slds-size_2-of-3 slds-wrap">
-                   
                       <div class="slds-col slds-size_1-of-2">City : </div>
                       <div class="slds-col slds-size_1-of-2">{displayCity}</div>
                       <div class="slds-col slds-size_1-of-2">Temperature : </div>

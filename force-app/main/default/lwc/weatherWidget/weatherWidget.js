@@ -55,8 +55,8 @@ export default class WeatherWidget extends LightningElement {
     connectedCallback() {
         this.getLastSync();
         if(this.flexipageRegionWidth === 'MEDIUM'){
-           this.regionWide = true};
-        if(this.flexipageRegionWidth === 'SMALL'){
+           this.regionWide = true}
+        else if(this.flexipageRegionWidth === 'SMALL'){
             this.regionWide = false;
         };
     }

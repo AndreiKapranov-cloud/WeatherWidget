@@ -34,8 +34,6 @@ export default class WeatherWidget extends LightningElement {
     temperature;
     weatherDescription;
     weatherIcon;
-    timestamp;
-    isFormEnabled;
     defaultCity;
     inputCity;
 
@@ -106,7 +104,7 @@ export default class WeatherWidget extends LightningElement {
 
     populateValues() {
         const configuration = this.configuration;
-        this.isFormEnabled = false;
+        
 
         if(configuration) {
             this.displayCity = configuration.a_kap__City__c;

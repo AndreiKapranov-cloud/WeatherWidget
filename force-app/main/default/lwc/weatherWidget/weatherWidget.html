@@ -4,7 +4,6 @@
           <lightning-button label="Refresh"  onclick={handleRefresh}></lightning-button>
       </lightning-button-group>
       <div class="slds-var-p-horizontal_small">
-          <template if:false = {isFormEnabled}>
               <div class="slds-grid slds-gutters">
                   <div class="slds-grid slds-col slds-size_2-of-3 slds-wrap">
                       <div class="slds-col slds-size_1-of-2">City : </div>
@@ -37,7 +36,6 @@
                         <button class="slds-button slds-button_inverse" label="Save" title="Save"
                         onclick={handleFormSave}>Save</button>
                    </div>     
-          </template>
       </div>
   </lightning-card>
 </template>

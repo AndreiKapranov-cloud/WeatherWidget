@@ -30,10 +30,16 @@
                       <div class="slds-col slds-size_1-of-2">Weather : </div>
                       <div class="slds-col slds-size_1-of-2">{weatherDescription}</div>
                   </div>
-                 
+                  <template if:true={regionWide}>
                   <div class="slds-col slds-size_1-of-7">
                       <img src={weatherIcon}>
                   </div> 
+                  </template>
+                  <template if:false={regionWide}>
+                    <div class="slds-col slds-size_2-of-7">
+                        <img src={weatherIcon}>
+                    </div> 
+                  </template>
                 </div>
                   <div class="slds-grid slds-gutters slds-wrap">
                     <div class="slds-col slds-size_1-of-1">

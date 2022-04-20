@@ -14,7 +14,8 @@ import SNOW_PICT from '@salesforce/resourceUrl/snow';
 import MIST_PICT from '@salesforce/resourceUrl/fog';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class WeatherWidget extends LightningElement {
-    
+    @api flexipageRegionWidth;
+    regionWide;
     moonPict = MOON_PICT;
     sunPict = SUNNY_PICT;
     fewCloudsPict = FEW_CLOUDS_PICT;
@@ -25,7 +26,7 @@ export default class WeatherWidget extends LightningElement {
     stormPict = STORM_PICT;
     snowPict = SNOW_PICT;
     mistPict = MIST_PICT;
-   
+    
     error;
     configuration;
     apiKey;
@@ -37,6 +38,8 @@ export default class WeatherWidget extends LightningElement {
     isFormEnabled;
     defaultCity;
     inputCity;
+
+    
     @wire(getCity)
     wiredCity({ error, data }) {
         if (data) {
@@ -51,6 +54,11 @@ export default class WeatherWidget extends LightningElement {
 
     connectedCallback() {
         this.getLastSync();
+        if(this.flexipageRegionWidth === 'MEDIUM'){
+           this.regionWide = true};
+        if(this.flexipageRegionWidth === 'SMALL'){
+            this.regionWide = false;
+        };
     }
 
 
@@ -70,10 +78,6 @@ export default class WeatherWidget extends LightningElement {
     async handleRefresh() {
         this.error = '';
         try {
-           /* if(this.displayCity){           
-            this.configuration = await refreshWeather({
-            city : this.displayCity
-            });*/
             if(this.inputCity){           
                 this.configuration = await refreshWeather({
                 city : this.inputCity

@@ -76,10 +76,10 @@ export default class WeatherWidget extends LightningElement {
 
     async handleRefresh() {
         this.error = '';
-        try {
-            if(this.inputCity){           
+        try { 
+            if(this.displayCity){          
                 this.configuration = await refreshWeather({
-                city : this.inputCity
+               city : this.displayCity
                 });
         }else{
            this.configuration = await refreshWeather({
@@ -148,8 +148,31 @@ export default class WeatherWidget extends LightningElement {
         }
     }
 
-    handleFormSave() {
-        this.handleRefresh();
+    async handleFormSave() {
+      this.error = '';
+        try {
+            if(this.inputCity){           
+                this.configuration = await refreshWeather({
+                city : this.inputCity         
+                });
+        }else{
+           this.configuration = await refreshWeather({
+               city : this.defaultCity        
+               });
+        }
+            this.populateValues();
+        }
+        catch (error) {
+            console.error(error);
+            this.error = error;
+            const evt = new ShowToastEvent({
+                title: 'Error',
+                message: 'City not found',
+                variant: 'error',
+                mode: 'dismissable'
+            });
+            this.dispatchEvent(evt);  
+        }
     }
 
 }
